@@ -1,7 +1,7 @@
 
 # MIPS64 call.s 笔记
 
-```plain
+```mips64
 /*
  * This file is part of the LibreOffice project.
  *

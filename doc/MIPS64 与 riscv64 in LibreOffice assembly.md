@@ -31,21 +31,22 @@ Executes the sum between 64-bits register rs and the immediate value, putting th
 
 ## SD rt, offset(base)
 
-Stores the content of register rt in the memory cell specified by offset and base, treating it as a double word.    
+Stores the content of register rt in the memory cell specified by offset and base, treating it as a double word.
 
-sd	$ra,152($sp) （riscv  也是 sd存储double word）
+`sd $ra,152($sp)` （riscv  也是 sd存储double word）
 
-1. sdc1	$f12,80($sp) 
+1. `sdc1 $f12,80($sp)`
  Store double-word To Float Point, Save the float point registers.
 
 (fsd riscv)
 
-## move	$a0,$v0 [$v0是return value, $a0是函数参数 ]
-##  b: Unconditional PC-relative (though relatively short-range) branch.
+`move $a0,$v0` [$v0是return value, $a0是函数参数 ]
+
+`b`: Unconditional PC-relative (though relatively short-range) branch.
 
 ## 小概念
 
-#### 汇编器指令（assembler directive）
+### 汇编器指令（assembler directive）
 
 就是以.开头的那些指令，既有架构特定的，也有GNU特定的
 
@@ -64,4 +65,4 @@ https://sourceware.org/binutils/docs-2.38/
 
 指的是为了简化书写而使用的“不正规”的汇编指令，例如mv实际上是addi加0的操作
 
-国内有把汇编器指令称呼为“伪指令”的，但是在查阅英文时无法复现
+国内有把汇编器指令称呼为“伪指令”的，英文环境下这种称呼较为罕见
