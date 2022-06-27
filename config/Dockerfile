@@ -13,9 +13,9 @@ RUN apt-get update -y \
     build-essential zip ccache junit4 libkrb5-dev nasm graphviz python3 python3-dev \
     qtbase5-dev libkf5coreaddons-dev libkf5i18n-dev libkf5config-dev libkf5windowsystem-dev \
     libkf5kio-dev autoconf libcups2-dev libfontconfig1-dev gperf default-jdk doxygen \
-    libxslt1-dev xsltproc libxml2-utils libxrandr-dev libx11-dev \
+    libxslt1-dev xsltproc libxml2-utils libxrandr-dev libx11-dev libxt-dev \
     bison flex libgtk-3-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev \
-    ant ant-optional libnss3-dev libavahi-client-dev git vim wget tar xz-utils \
+    ant ant-optional libnss3-dev libavahi-client-dev automake git vim wget tar xz-utils unzip \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /root/

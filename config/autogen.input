@@ -1,8 +1,8 @@
 
-// 286 fix: firebird3 error ( see 推进时的思路.md )
+// 286 fix: firebird3 error
 --disable-firebird-sdbc
 
-// 286 fix: galleries - illegal instruction ( see 推进时的思路.md )
+// 286 fix: galleries - illegal instruction
 --with-galleries=no
 
 // accelerate compiling
