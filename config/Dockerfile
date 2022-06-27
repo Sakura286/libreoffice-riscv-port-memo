@@ -26,3 +26,9 @@ RUN wget http://download.documentfoundation.org/libreoffice/src/${LO_VERSION%.*}
     && tar -xf libreoffice-${LO_VERSION}.tar.xz \
     && wget -r --level=1 -nv -nd -P "./libreoffice-7.3.4.2/external/tarballs" "https://go.suokunlong.cn:88/dl/libreoffice/external_tarballs/" \
     && rm libreoffice-${LO_VERSION}.tar.xz
+
+WORKDIR /root/libreoffice-${LO_VERSION}
+
+RUN wget https://raw.githubusercontent.com/Sakura286/libreoffice-riscv-port-memo/main/config/0001-stage.patch \
+    && patch -p1 <0001-stage.patch \
+    && wget https://raw.githubusercontent.com/Sakura286/libreoffice-riscv-port-memo/main/config/autogen.input
