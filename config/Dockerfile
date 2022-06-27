@@ -1,0 +1,28 @@
+
+FROM riscv64/debian:unstable
+
+LABEL maintainer="vimer, Sakura286"
+
+RUN apt-get update -y && apt-get install ca-certificates -y
+
+RUN echo "deb  http://mirror.iscas.ac.cn/debian-ports unstable main" > /etc/apt/sources.list
+
+RUN apt-get update -y \
+    && DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y --no-install-recommends \
+    build-essential zip ccache junit4 libkrb5-dev nasm graphviz python3 python3-dev \
+    qtbase5-dev libkf5coreaddons-dev libkf5i18n-dev libkf5config-dev libkf5windowsystem-dev \
+    libkf5kio-dev autoconf libcups2-dev libfontconfig1-dev gperf default-jdk doxygen \
+    libxslt1-dev xsltproc libxml2-utils libxrandr-dev libx11-dev \
+    bison flex libgtk-3-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev \
+    ant ant-optional libnss3-dev libavahi-client-dev git vim wget tar xz-utils \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /root/
+
+ENV LO_VERSION="7.3.4.2"
+
+RUN wget http://download.documentfoundation.org/libreoffice/src/${LO_VERSION%.*}/libreoffice-${LO_VERSION}.tar.xz \
+    && tar -xf libreoffice-${LO_VERSION}.tar.xz \
+    && wget -r --level=1 -nv -nd -P "./libreoffice-7.3.4.2/external/tarballs" "https://go.suokunlong.cn:88/dl/libreoffice/external_tarballs/" \
+    && rm libreoffice-${LO_VERSION}.tar.xz

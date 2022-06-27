@@ -7,3 +7,5 @@
 
 // accelerate compiling
 --with-parallelism=16
+
+--enable-debug

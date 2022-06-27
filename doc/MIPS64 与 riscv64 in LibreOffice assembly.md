@@ -46,6 +46,16 @@ Stores the content of register rt in the memory cell specified by offset and bas
 
 ## 小概念
 
+### 分支延迟槽
+
+参考`https://blog.csdn.net/LJL1603/article/details/6553957`及`RISC-V-Reader-Chinese`
+
+MIPS 和 PowerPC 保留了分支延迟槽的特性
+
+在早期的RISC中，分支究竟要跳转到哪个地址，往往是在第二级流水线时实现的，这样碰到分支指令的时候会阻塞一个时钟周期。为了避免这个浪费，在分支指令后增加一个“分支延迟槽”，来补充这个原本被阻塞的时钟周期。
+
+所以，只是把正常顺序下接在分支指令前的语句挪到分支指令之后而已
+
 ### 汇编器指令（assembler directive）
 
 就是以.开头的那些指令，既有架构特定的，也有GNU特定的
@@ -59,7 +69,7 @@ GNU汇编（gas）
 https://sourceware.org/binutils/docs-2.38/
 ```
 
-需要解释的汇编器指令
+需要解释的汇编器指令✗
 
 ### 伪指令（pseudo instruction）
 
