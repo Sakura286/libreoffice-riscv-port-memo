@@ -1,11 +1,11 @@
 
-// 286 fix: firebird3 error
+# Sakura286: firebird3 error
 --disable-firebird-sdbc
 
-// 286 fix: galleries - illegal instruction
+# Sakura286: galleries - illegal instruction
 --with-galleries=no
 
-// accelerate compiling
+# accelerate compiling
 --with-parallelism=16
 
 --enable-debug

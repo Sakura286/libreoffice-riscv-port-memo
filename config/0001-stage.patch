@@ -1,19 +1,20 @@
-From c457c1929919608c07180c5b585c1243505a5f57 Mon Sep 17 00:00:00 2001
+From af54693bbf678f105fe6cab7d3736c76c186138a Mon Sep 17 00:00:00 2001
 From: Sakura286 <sakura286@outlook.com>
-Date: Mon, 27 Jun 2022 15:56:25 +0800
-Subject: [PATCH] first
+Date: Tue, 28 Jun 2022 09:36:17 +0800
+Subject: [PATCH] stage 01 - pass compilation
 
 ---
- bridges/Library_cpp_uno.mk                    |   8 +
+ bridges/Library_cpp_uno.mk                    |   9 +
  .../cpp_uno/gcc3_linux_riscv64/call.hxx       |  35 +
  .../source/cpp_uno/gcc3_linux_riscv64/call.s  | 145 ++++
  .../cpp_uno/gcc3_linux_riscv64/cpp2uno.cxx    | 704 ++++++++++++++++++
  .../cpp_uno/gcc3_linux_riscv64/except.cxx     | 290 ++++++++
  .../cpp_uno/gcc3_linux_riscv64/share.hxx      |  89 +++
- .../cpp_uno/gcc3_linux_riscv64/uno2cpp.cxx    | 560 ++++++++++++++
+ .../cpp_uno/gcc3_linux_riscv64/uno2cpp.cxx    | 561 ++++++++++++++
  configure.ac                                  |  10 +-
+ jvmfwk/inc/vendorbase.hxx                     |   2 +
  solenv/gbuild/platform/LINUX_RISCV64_GCC.mk   |  15 +
- 9 files changed, 1854 insertions(+), 2 deletions(-)
+ 10 files changed, 1858 insertions(+), 2 deletions(-)
  create mode 100644 bridges/source/cpp_uno/gcc3_linux_riscv64/call.hxx
  create mode 100644 bridges/source/cpp_uno/gcc3_linux_riscv64/call.s
  create mode 100644 bridges/source/cpp_uno/gcc3_linux_riscv64/cpp2uno.cxx
@@ -23,14 +24,15 @@ Subject: [PATCH] first
  create mode 100644 solenv/gbuild/platform/LINUX_RISCV64_GCC.mk
 
 diff --git a/bridges/Library_cpp_uno.mk b/bridges/Library_cpp_uno.mk
-index 3a31bf69f..4b8121cae 100644
+index e2de3c167..27e1249f3 100644
 --- a/bridges/Library_cpp_uno.mk
 +++ b/bridges/Library_cpp_uno.mk
-@@ -111,6 +111,14 @@ bridge_noopt_objects := cpp2uno uno2cpp
+@@ -114,6 +114,15 @@ bridge_noopt_objects := cpp2uno uno2cpp
  bridge_exception_objects := except
  endif
  
 +else ifeq ($(CPUNAME),RISCV64)
++
 +ifneq ($(filter LINUX,$(OS)),)
 +bridges_SELECTED_BRIDGE := gcc3_linux_riscv64
 +bridge_asm_objects := call
@@ -235,7 +237,7 @@ index 000000000..86b1b21b7
 +
 diff --git a/bridges/source/cpp_uno/gcc3_linux_riscv64/cpp2uno.cxx b/bridges/source/cpp_uno/gcc3_linux_riscv64/cpp2uno.cxx
 new file mode 100644
-index 000000000..7074c8bb1
+index 000000000..5543ff39d
 --- /dev/null
 +++ b/bridges/source/cpp_uno/gcc3_linux_riscv64/cpp2uno.cxx
 @@ -0,0 +1,704 @@
@@ -848,12 +850,12 @@ index 000000000..7074c8bb1
 +
 +void bridges::cpp_uno::shared::VtableFactory::flushCode(unsigned char const *bptr, unsigned char const *eptr)
 +{
-+#ifdef ANDROID
-+  //(void) bptr;
-+  //(void) eptr;
-+  //sysmips(FLUSH_CACHE, 0, 0, 0);
++#ifndef ANDROID
++//  (void) bptr;
++//  (void) eptr;
++//  sysmips(FLUSH_CACHE, 0, 0, 0);
 +#else
-+  //cacheflush((long) bptr, (long) eptr, 0);
++//  cacheflush((long) bptr, (long) eptr, 0);
 +#endif
 +}
 +
@@ -1336,10 +1338,10 @@ index 000000000..ee2235e4f
 +/* vim:set shiftwidth=4 softtabstop=4 expandtab: */
 diff --git a/bridges/source/cpp_uno/gcc3_linux_riscv64/uno2cpp.cxx b/bridges/source/cpp_uno/gcc3_linux_riscv64/uno2cpp.cxx
 new file mode 100644
-index 000000000..8f6f245dd
+index 000000000..ccc6b5ccb
 --- /dev/null
 +++ b/bridges/source/cpp_uno/gcc3_linux_riscv64/uno2cpp.cxx
-@@ -0,0 +1,560 @@
+@@ -0,0 +1,561 @@
 +/* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 +/*
 + * This file is part of the LibreOffice project.
@@ -1513,13 +1515,14 @@ index 000000000..8f6f245dd
 +
 +    sal_Int64 gret[2];
 +    double fret[2];
-+    asm volatile(
++    asm volatile (
 +	"csrr %0, 0x141\n\t"\
 +        "add %0, %0, 4\n\t"\
 +	"csrw 0x141, %0"
 +	: "+r" (mfunc)
 +	:
 +	: "memory");
++
 +    switch (pReturnTypeRef->eTypeClass)
 +    {
 +    case typelib_TypeClass_HYPER:
@@ -1901,10 +1904,10 @@ index 000000000..8f6f245dd
 +
 +/* vim:set shiftwidth=4 softtabstop=4 expandtab: */
 diff --git a/configure.ac b/configure.ac
-index 1d0b5aa6c..330d0bdf2 100644
+index 2963f05e3..573b836dc 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -5071,6 +5071,12 @@ linux-gnu*|linux-musl*)
+@@ -5161,6 +5161,12 @@ linux-gnu*|linux-musl*)
          EPM_FLAGS="-a mipsel"
          PLATFORMID=linux_mips_el
          ;;
@@ -1917,7 +1920,7 @@ index 1d0b5aa6c..330d0bdf2 100644
      m68k)
          CPUNAME=M68K
          RTL_ARCH=M68K
-@@ -8392,7 +8398,7 @@ if test "$ENABLE_JAVA" != ""; then
+@@ -8544,7 +8550,7 @@ if test "$ENABLE_JAVA" != ""; then
          JAVAINTERPRETER=`win_short_path_for_make "$JAVAINTERPRETER"`
      elif test "$cross_compiling" != "yes"; then
          case $CPUNAME in
@@ -1926,7 +1929,7 @@ index 1d0b5aa6c..330d0bdf2 100644
                  if test -f "$JAVAINTERPRETER" -a "`$JAVAINTERPRETER -version 2>&1 | $GREP -i 64-bit`" = "" >/dev/null; then
                      AC_MSG_WARN([You are building 64-bit binaries but the JDK $JAVAINTERPRETER is 32-bit])
                      AC_MSG_ERROR([You should pass the --with-jdk-home option pointing to a 64-bit JDK])
-@@ -12825,7 +12831,7 @@ AC_SUBST(RHINO_JAR)
+@@ -12812,7 +12818,7 @@ AC_SUBST(RHINO_JAR)
  # platforms there.
  supports_multilib=
  case "$host_cpu" in
@@ -1935,6 +1938,19 @@ index 1d0b5aa6c..330d0bdf2 100644
      if test "$SAL_TYPES_SIZEOFLONG" = "8"; then
          supports_multilib="yes"
      fi
+diff --git a/jvmfwk/inc/vendorbase.hxx b/jvmfwk/inc/vendorbase.hxx
+index 779fc8f7a..ef6072076 100644
+--- a/jvmfwk/inc/vendorbase.hxx
++++ b/jvmfwk/inc/vendorbase.hxx
+@@ -59,6 +59,8 @@ OpenJDK at least, but probably not true for Lemotes JDK */
+ #else
+ #define JFW_PLUGIN_ARCH "mips64el"
+ #endif
++#elif defined RISCV64
++#define JFW_PLUGIN_ARCH "riscv64"
+ #elif defined S390X
+ #define JFW_PLUGIN_ARCH "s390x"
+ #elif defined S390
 diff --git a/solenv/gbuild/platform/LINUX_RISCV64_GCC.mk b/solenv/gbuild/platform/LINUX_RISCV64_GCC.mk
 new file mode 100644
 index 000000000..9e007101d
