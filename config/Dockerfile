@@ -18,6 +18,7 @@ RUN apt-get update -y \
     bison flex libgtk-3-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev \
     ant ant-optional libnss3-dev libavahi-client-dev automake git vim wget tar xz-utils unzip \
     && rm -rf /var/lib/apt/lists/*
+# 可能有gpgconf
 
 # WORKDIR /root/
 #ENV LO_VERSION="7.3.4.2"
@@ -27,11 +28,11 @@ RUN apt-get update -y \
 #    && rm libreoffice-${LO_VERSION}.tar.xz
 #WORKDIR /root/libreoffice-${LO_VERSION}
 
-RUN cd /root/ \
-    && git clone git://go.suokunlong.cn/lo/core ./libreoffice \
+WORKDIR /root/
+RUN git clone git://go.suokunlong.cn/lo/core ./libreoffice
 
-RUN cd /root/libreoffice \
-    && git reset --hard 69485e422c90 \
+WORKDIR /root/libreoffice
+RUN git reset --hard 69485e422c90 \
     && wget -r --level=1 -nv -nd -P "./external/tarballs" "https://go.suokunlong.cn:88/dl/libreoffice/external_tarballs/" \
     && wget https://raw.githubusercontent.com/Sakura286/libreoffice-riscv-port-memo/main/config/0001-stage.patch \
     && patch -p1 <0001-stage.patch \
