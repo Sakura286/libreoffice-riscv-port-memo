@@ -28,9 +28,9 @@
 
 ### external tarballs
 
-`https://dev-www.libreoffice.org/src/`
+国外仓库：`https://dev-www.libreoffice.org/src/`
 
-国内镜像：``
+国内镜像：`https://go.suokunlong.cn:88/dl/libreoffice/external_tarballs/`
 
 ### 补丁
 
@@ -39,8 +39,7 @@
 ### 教程
 
 快速开始在 riscv 上踩坑
-
-``
+`https://github.com/Sakura286/libreoffice-riscv-port-memo/blob/main/doc/Quick%20Start.md`
 
 如何编译 LibreOffice – LibreOffice 中文社区
 `https://www.libreofficechina.org/how-to-build-libreoffice-zh-cn/)`
@@ -54,16 +53,12 @@ Development/BuildingOnLinux - The Document Foundation - wiki
 
 `https://bbs.libreofficechina.org/forum.php`
 
-
-
 ## 开发
 
-### 订阅邮件
-
+订阅邮件
 `https://lists.freedesktop.org/mailman/listinfo/libreoffice`
 
-### LibreOffice 7.3 SDK API Reference
-
+LibreOffice 7.3 SDK API Reference
 `https://api.libreoffice.org/docs/idl/ref/index.html`
 `https://api.libreoffice.org/`
 

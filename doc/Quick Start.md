@@ -4,27 +4,25 @@
 
 ### 1. 准备好一个 riscv环境
 
-如有需要在 Debian 上构建 qemu chroot 或 qemu system，请参照[基础环境的搭建]()的`快速建立一个debian riscv环境`一节
+如有需要在 Debian 上构建 qemu chroot 或 qemu system，请参照[基础环境的搭建](/doc/history/%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA.md)的`快速建立一个debian riscv环境`一节
 
 ### 2. 下载源码
 
-请参照[一些资料及链接]()的`源码`一节
+请参照[一些资料及链接](/doc/Reference.md#%E6%BA%90%E7%A0%81)的`源码`一节
 
 目前稳定版为 [7.3.5.2](http://download.documentfoundation.org/libreoffice/src/7.3.5/) ， tarball 能下载到的最高版本是 [7.4.0.1](http://download.documentfoundation.org/libreoffice/src/7.4.0/) ，如要获取最新的版本，请克隆官方仓库
 
-https://wiki.documentfoundation.org/Development/BuildingOnLinux)
-
 ### 3. 打patch
 
-[基础的patch]()在主目录的 config 文件夹下
+[基础的patch](/config/01-libreoffice-riscv64.patch)在主目录的 config 文件夹下
 
 ### 4. 安装依赖
 
-请参照[Development/BuildingOnLinux - The Document Foundation Wiki](
+请参照[Development/BuildingOnLinux - The Document Foundation Wiki](https://wiki.documentfoundation.org/Development/BuildingOnLinux)
 
 ### 5. 下载 external tarballs
 
-请参照[一些资料及链接]()的`源码`一节，将 tarball 下载到
+请参照[一些资料及链接](/doc/Reference.md#external-tarballs)的`external tarballs`一节，将 tarball 下载到`external/tarballs`下
 
 ### 5. 开始编译
 
@@ -70,4 +68,3 @@ apt-get install -y \
     bison flex libgtk-3-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev \
     ant ant-optional libnss3-dev libavahi-client-dev automake tar xz-utils unzip
 ```
-
