@@ -5,7 +5,7 @@
 
 若启用ccache，确实能在修改代码（或上次中断）后的增量编译中获得很大的加速
 
-ccache缓存默认大小是4G，据说编libreoffice得8G，做一些libreoffice开发的话可能需要32G（用这么模糊的说法是我忘了出处了），可以这样设置：
+ccache缓存默认大小是4G，据说编libreoffice得8G，做一些libreoffice开发的话可能需要32G，可以这样设置：
 
 ```shell
 ccache -M 32G
@@ -33,6 +33,8 @@ make --debug[=options]
 `make -d >out.log 2>error.log`
 
 `https://blog.csdn.net/weixin_37548620/article/details/105972568`
+
+可以结合 tee 命令，做到既能输出到屏幕又能输出到文件中
 
 ## 交叉编译中的 build 、 host 与 target
 
