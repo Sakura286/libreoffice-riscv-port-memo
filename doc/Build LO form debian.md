@@ -47,31 +47,19 @@ sudo apt install -y  \
     qtbase5-dev libkf5coreaddons-dev libkf5i18n-dev libkf5config-dev libkf5windowsystem-dev \
     libkf5kio-dev autoconf libcups2-dev libfontconfig1-dev gperf default-jdk doxygen \
     libxslt1-dev xsltproc libxml2-utils libxrandr-dev libx11-dev libxt-dev libassuan-dev \
-    bison flex libgtk-3-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev \
+    bison flex libgtk-3-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev firebird-dev \
     ant ant-optional libnss3-dev libavahi-client-dev automake git vim wget tar xz-utils unzip
 
 # 下载源码（这里使用了国内镜像）
 git clone --depth=1 git://go.suokunlong.cn/lo/core ./libreoffice
-wget https://raw.githubusercontent.com/Sakura286/libreoffice-riscv-port-memo/main/config/01-libreoffice-riscv64.patch
-wget https://raw.githubusercontent.com/Sakura286/libreoffice-riscv-port-memo/main/config/02-libreoffice-boost.patch
-
 cd libreoffice
-patch -p1 <../01-libreoffice-riscv64.patch
-patch -p1 <../02-libreoffice-boost.patch
-# 因为官方代码最近更新了 mips64 在 configure 过程中的代号，以及增加了 loongarch64 支持
-# 所以 patch 01 补丁的时候会有错误，暂时需要手动修改 configure.ac 
-# 在出错的行数附近找到有数个架构排在同一行的代码行，然后正确加入 riscv64 就行了
-# 对于当前提交 #916848d877 ，有问题的行是 8625 与 12868
-# 我暂时打算在没有新的进展之前不修改这两处错误
-vim configure.ac
 
 # external tarballs 最好提前下下来，这里使用了国内镜像
 # 一共大约 3G ，请耐心等待
 wget -r --level=1 -nv -nd -P "./external/tarballs" "https://go.suokunlong.cn:88/dl/libreoffice/external_tarballs/"
-# --disable-firebird-sdbc
-# --with-galleries=no
+# --with-system-firebird
 # --enable-debug
-# --with-parallelism=4
+# --with-parallelism=12
 vim autogen.input
 ccache -M 32G
 ```
