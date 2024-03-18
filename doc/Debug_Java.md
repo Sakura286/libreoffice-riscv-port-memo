@@ -8,6 +8,7 @@ A better tool is required, but there is no decent and stable IDE on riscv64 till
 ## 1. Set SSH tunnel
 
 ```shell
+# execute this command on client side.
 ssh -N -L 14286:localhost:24286 debian@101.230.251.34 -p 38002
 ```
 
@@ -30,7 +31,7 @@ First we need a copy of the source code on the riscv64 server. Open the source c
 
 Our goal in this step is to fix the symbol missing error in IDEA.
 
-Clone all the `.jar` files in `instdir/program` to the x86 machine. Execute `New`->`Project Structure`->`Project Settings`->`Modules`->`Dependencies`, and add the folder path containing the `.jar` files.
+Clone all the `.jar` files in `instdir/program` to the x86 machine. Execute `File`->`Project Structure`->`Project Settings`->`Modules`->`Dependencies`, and add the folder path containing the `.jar` files.
 
 ## 4. Run Java program on riscv64 server
 
