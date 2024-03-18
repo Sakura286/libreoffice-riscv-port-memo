@@ -40,8 +40,10 @@ Our goal in this step is running the program on riscv64 server, and expose debug
 Add this segment to the Java command you want to run.
 
 ```shell
--agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:24286
+-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:24286
 ```
+
+if `suspend=y`, the program will suspend until a debugger attached.
 
 ## 5. Remote debug on x86 IDEA
 
